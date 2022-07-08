@@ -15,4 +15,4 @@
 3. Add configurations
 
 ## How to run locally:
-1. Run ```./oclint-22.02/build/oclint-release/bin/oclint-22.02
+1. Run ```./oclint-22.02/build/oclint-release/bin/oclint-22.02```

@@ -14,9 +14,6 @@ BUILD_DYNAMIC_RULES("${BuildIllegalClassMethodRule}")
 SET(BuildInitVariableRule InitVariable)
 BUILD_DYNAMIC_RULES("${BuildInitVariableRule}")
 
-SET(BuildLongMethodRule LongMethod)
-BUILD_DYNAMIC_RULES("${BuildLongMethodRule}")
-
 SET(BuildMostLocalScopeRule MostLocalScope)
 BUILD_DYNAMIC_RULES("${BuildMostLocalScopeRule}")
 
@@ -37,12 +34,6 @@ BUILD_DYNAMIC_RULES("${BuildTooLittleClassesRule}")
 
 SET(BuildTooLittleFunctionsRule TooLittleFunctions)
 BUILD_DYNAMIC_RULES("${BuildTooLittleFunctionsRule}")
-
-SET(BuildUnusedLocalVariableRule UnusedLocalVariable)
-BUILD_DYNAMIC_RULES("${BuildUnusedLocalVariableRule}")
-
-SET(BuildUnusedMethodParameterRule UnusedMethodParameter)
-BUILD_DYNAMIC_RULES("${BuildUnusedMethodParameterRule}")
 
 SET(BuildConsistantBracesRule ConsistantBraces)
 BUILD_DYNAMIC_RULES("${BuildConsistantBracesRule}")

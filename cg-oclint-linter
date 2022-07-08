@@ -1,0 +1,104 @@
+#!/usr/bin/env python3
+
+import sys
+import json
+import typing as t
+import subprocess
+
+import typer
+import cg_at_utils.utils as utils
+from cg_at_utils.comments import put_comment
+
+
+def convert_priority_to_severity(priority):
+    severity = {
+        1 : "fatal",
+        2 : "error",
+        3 : "warning"
+    }
+
+    return severity.get(priority, "info")
+
+
+def handle_comment(comment):
+    return {
+        'origin': "OClint",
+        'msg': comment['message'],
+        'code': comment['rule'],
+        'severity': convert_priority_to_severity(comment['priority']),
+        'line': {
+            'start': comment['startLine'],
+            'end': comment['endLine'],
+        },
+        'column': {
+            'start': comment['startColumn'],
+            'end': comment['endColumn'],
+        },
+        'path': utils.path.split(comment['path'].rsplit('/')[-1]),
+    }
+
+
+app = utils.cli.make_typer(name='cg-oclint-linter')
+
+
+@app.command()
+def main(
+    oclint_args: t.List[str] = typer.Argument(
+        None, help='Arguments to pass to OCLint'
+    ),
+):
+    """Run OCLint on the given files."""
+
+    proc = subprocess.run(
+        ['./oclint-release/bin/oclint-22.02', '-report-type', 'json', *oclint_args],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        encoding='utf8',
+    )
+
+    if proc.returncode == 1:
+        print(
+            'RULE_NOT_FOUND',
+            file=sys.stderr,
+        )
+        utils.exit(1)
+
+    if proc.returncode == 2:
+        print(
+            'REPORTER_NOT_FOUND',
+            file=sys.stderr,
+        )
+        utils.exit(2)
+
+    if proc.returncode == 3:
+        print(
+            'ERROR_WHILE_PROCESSING',
+            file=sys.stderr,
+        )
+        utils.exit(3)
+
+    if proc.returncode == 4:
+        print(
+            'ERROR_WHILE_REPORTING',
+            file=sys.stderr,
+        )
+        utils.exit(4)
+
+    if proc.returncode == 6:
+        print(
+            'COMPILATION_ERRORS',
+            file=sys.stderr,
+        )
+        utils.exit(6)
+
+    comments = [handle_comment(violation) for violation in json.loads(proc.stdout)['violation']]
+
+    put_comment({
+        'op': 'put_comments',
+        'comments': comments,
+        'ignore_files_not_found': True,
+    })
+
+
+if __name__ == '__main__':
+    app()

@@ -15,8 +15,6 @@ rules:
   - ClassFunctionsOnly
   - MostLocalScope
   - ConsistantBraces
-  - UnusedLocalVariable
-  - UnusedMethodParameter
   - EmptyLine
   - Indentation
 rule-configurations:

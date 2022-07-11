@@ -19,4 +19,5 @@
 
 ## Extra Files
 ```cg-oclint-linter``` is the wrapper script that is used to run OCLint on CodeGrade
-```oclint``` is a sample configuration file that enables all the rules mentioned in this Project.
+
+```oclint``` is a sample configuration file that enables all the rules mentioned in this Project

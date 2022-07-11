@@ -1,0 +1,36 @@
+rules:
+  - NamingConvention
+  - Namespace
+  - LongMethod
+  - GlobalVariable
+  - DeclareConst
+  - NoStruct
+  - TooLittleFunctions
+  - TooLittleClasses
+  - InitVariable
+  - WhiteSpace
+  - Recursion
+  - NoArray
+  - IllegalClassMethod
+  - ClassFunctionsOnly
+  - MostLocalScope
+  - ConsistantBraces
+  - UnusedLocalVariable
+  - UnusedMethodParameter
+  - EmptyLine
+  - Indentation
+rule-configurations:
+  - key: LONG_METHOD
+    value: 25
+  - key: TOO_LITTLE_FUNCTIONS
+    value: 2
+  - key: TOO_LITTLE_CLASSES
+    value: 2
+  - key: RECURSION
+    value: "MANDATORY"
+  - key: ILLEGAL_CLASS_METHOD
+    value: "B-vector:erase;"
+
+
+
+
